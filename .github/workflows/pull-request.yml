@@ -8,17 +8,26 @@ on:
 
 jobs:
   prettier:
+    name: Prettier
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - name: Run prettier
-        run: |-
-          npx prettier --check .
+        run: npx prettier --check .
 
   validate-entry:
     name: Validate entries
-    uses: ./.github/workflows/validate-entry.yml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run validation
+        run: ./.github/workflows/validate-entry.yml
 
   check-file-changes:
     name: Check file changes
-    uses: ./.github/workflows/check-file-changes.yml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run file change check
+        run: ./.github/workflows/check-file-changes.yml
